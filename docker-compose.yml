@@ -1,0 +1,71 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: agaci-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: agaci
+      POSTGRES_PASSWORD: agaci_dev_password
+      POSTGRES_DB: agaci_db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U agaci -d agaci_db']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: agaci-redis
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  directus:
+    image: directus/directus:10.13.0
+    container_name: agaci-directus
+    restart: unless-stopped
+    ports:
+      - '8055:8055'
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      SECRET: 'replace-with-secure-random-secret-in-production'
+      DB_CLIENT: pg
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_DATABASE: agaci_db
+      DB_USER: agaci
+      DB_PASSWORD: agaci_dev_password
+      CACHE_ENABLED: 'true'
+      CACHE_STORE: redis
+      REDIS: redis://redis:6379
+      ADMIN_EMAIL: admin@agaci.org
+      ADMIN_PASSWORD: Admin1234!
+      PUBLIC_URL: http://localhost:8055
+      CORS_ENABLED: 'true'
+      CORS_ORIGIN: 'http://localhost:3000'
+    volumes:
+      - directus_uploads:/directus/uploads
+      - directus_extensions:/directus/extensions
+
+volumes:
+  postgres_data:
+  redis_data:
+  directus_uploads:
+  directus_extensions:

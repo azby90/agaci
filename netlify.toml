@@ -1,0 +1,12 @@
+[build]
+  base    = "."
+  command = "pnpm --filter web build"
+  publish = "apps/web/.next"
+
+[build.environment]
+  NODE_VERSION  = "20"
+  PNPM_VERSION  = "9"
+  NODE_OPTIONS  = "--max-old-space-size=4096"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

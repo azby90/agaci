@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+dist/
+build/
+apps/web/tsconfig.tsbuildinfo
+
+# Env files
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Netlify
+.netlify/
+
+# Médias lourds (vidéos — héberger sur YouTube/Cloudinary)
+*.mp4
+*.mov
+*.avi
+*.webm
+
+# Dossier images brutes (ne pas committer, utiliser Cloudinary)
+image/

@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700&family=Oswald:wght@400;500;600;700&family=Alfa+Slab+One&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 215 25% 15%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 25% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 25% 15%;
+
+    --primary: 152 100% 31%;       /* #009e60 — Vert Gabon */
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 225 62% 28%;      /* #1e3c78 — Bleu institutionnel */
+    --secondary-foreground: 0 0% 100%;
+
+    --muted: 210 20% 96%;
+    --muted-foreground: 215 15% 45%;
+
+    --accent: 48 97% 56%;          /* #fcd116 — Jaune Gabon */
+    --accent-foreground: 215 25% 15%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 210 20% 90%;
+    --input: 210 20% 90%;
+    --ring: 152 100% 31%;
+
+    --radius: 0.125rem;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+    line-height: 1.7;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-heading;
+    line-height: 1.2;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .gradient-agaci {
+    background: linear-gradient(135deg, #1e3c78 0%, #009e60 100%);
+  }
+
+  .gradient-agaci-warm {
+    background: linear-gradient(135deg, #009e60 0%, #f77f00 100%);
+  }
+
+  /* Section padding */
+  .section-py {
+    @apply py-16 md:py-24;
+  }
+
+  /* Card hover lift */
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-lg;
+  }
+
+  /* Lien d'action */
+  .action-link {
+    @apply inline-flex items-center gap-1.5 text-sm font-semibold uppercase tracking-wider text-gabon-green transition-all hover:gap-3 hover:text-gabon-yellow;
+  }
+
+  /* Section label */
+  .section-label {
+    @apply text-gabon-green text-xs font-bold uppercase tracking-[0.2em];
+  }
+
+  /* Overline décoratif */
+  .section-overline::before {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 2px;
+    background: #009e60;
+    margin-right: 0.75rem;
+    vertical-align: middle;
+  }
+
+  /* Pattern géométrique africain */
+  .pattern-dots {
+    background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  .pattern-grid {
+    background-image:
+      linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  /* Animate on scroll - classes ajoutées par JS */
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .animate-on-scroll-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .animate-on-scroll-left.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .animate-on-scroll-right {
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .animate-on-scroll-right.is-visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Stagger delays pour les grilles */
+  .stagger-1 { transition-delay: 0.1s; }
+  .stagger-2 { transition-delay: 0.2s; }
+  .stagger-3 { transition-delay: 0.3s; }
+  .stagger-4 { transition-delay: 0.4s; }
+  .stagger-5 { transition-delay: 0.5s; }
+  .stagger-6 { transition-delay: 0.6s; }
+}
