@@ -1,45 +1,43 @@
 'use client'
 
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ArrowRight, ChevronDown, Volume2, VolumeX } from 'lucide-react'
+import { ArrowRight, ChevronDown } from 'lucide-react'
+
+const YT_ID = 'KoNMXBo8u_U'
 
 export function HeroSection() {
   const [mounted, setMounted] = useState(false)
-  const [muted, setMuted] = useState(true)
-  const videoRef = useRef<HTMLVideoElement>(null)
 
   useEffect(() => {
     const t = setTimeout(() => setMounted(true), 80)
     return () => clearTimeout(t)
   }, [])
 
-  const toggleMute = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !muted
-      setMuted(!muted)
-    }
-  }
-
   return (
     <section className="relative min-h-screen flex flex-col overflow-hidden bg-gabon-blue">
 
-      {/* ── Vidéo de fond — Événement 3 décembre 2025 ── */}
-      <div className="absolute inset-0 z-0">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          poster="/evenements/10-mars-2025/482016900_122170060946303209_917048036729286606_n.jpg"
-          className="h-full w-full object-cover object-center"
-        >
-          <source src="/evenements/3-decembre-2025/v1.mp4" type="video/mp4" />
-        </video>
-
-        {/* Overlay — vidéo visible en fond, écritures lisibles au premier plan */}
+      {/* ── Vidéo YouTube de fond ── */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <iframe
+          src={`https://www.youtube.com/embed/${YT_ID}?autoplay=1&mute=1&loop=1&playlist=${YT_ID}&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1&enablejsapi=0`}
+          allow="autoplay; encrypted-media"
+          title="Vidéo AGACI"
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            width: '177.78vh',
+            minWidth: '100%',
+            height: '56.25vw',
+            minHeight: '100%',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
+            border: 'none',
+          }}
+        />
+        {/* Overlay */}
         <div className="absolute inset-0 bg-gabon-blue/75" />
       </div>
 
@@ -163,16 +161,6 @@ export function HeroSection() {
         </div>
 
       </div>
-
-      {/* Bouton son */}
-      <button
-        onClick={toggleMute}
-        aria-label={muted ? 'Activer le son' : 'Couper le son'}
-        className="absolute bottom-20 right-6 z-20 flex items-center gap-2 border border-white/20 bg-black/30 px-3 py-2 text-xs text-white/60 backdrop-blur transition-all hover:border-white/40 hover:text-white"
-      >
-        {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-        <span className="hidden sm:inline">{muted ? 'Son désactivé' : 'Son activé'}</span>
-      </button>
 
       {/* Crédit vidéo */}
       <div className="absolute bottom-20 left-6 z-20 text-[10px] text-white/25 uppercase tracking-wider hidden sm:block">
