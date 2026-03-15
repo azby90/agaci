@@ -33,6 +33,7 @@ export function HeroSection() {
           muted
           loop
           playsInline
+          poster="/evenements/10-mars-2025/482016900_122170060946303209_917048036729286606_n.jpg"
           className="h-full w-full object-cover object-center"
         >
           <source src="/evenements/3-decembre-2025/v1.mp4" type="video/mp4" />
